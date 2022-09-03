@@ -15,7 +15,7 @@ class ArrayDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
-        pass
+        self.dict = dict
 
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
@@ -24,7 +24,21 @@ class ArrayDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
         # TO BE IMPLEMENTED
+        dictionary = []
 
+        for x in words_frequencies:
+            dictionary.append(x)
+
+        #sort inputList alphabetically
+        n = len(dictionary)
+        swapped = False
+        for i in range(n-1):
+            for j in range(0, n-i-1):
+                if dictionary[j].word > dictionary[j+1].word:
+                    swapped = True
+                    dictionary[j], dictionary[j+1] = dictionary[j+1],dictionary[j]
+
+        self.dict = dictionary
 
     def search(self, word: str) -> int:
         """
@@ -33,6 +47,11 @@ class ArrayDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         # TO BE IMPLEMENTED
+        dictionary = self.dict
+        
+        for x in dictionary:
+            if x.word == word:
+                return x.frequency       
 
         return 0
 
