@@ -60,12 +60,12 @@ class ArrayDictionary(BaseDictionary):
         @param word_frequency: (word, frequency) to be added
         :return: True whether succeeded, False when word is already in the dictionary
         """
-        # TO BE IMPLEMENTED
         dictionary = self.dict
 
         for x in dictionary:
             if word_frequency.word > x.word:
                 word_stop = x
+                break
             elif word_frequency.word == x.word:
                 word_stop = 0
         if word_stop == 0:
@@ -82,8 +82,19 @@ class ArrayDictionary(BaseDictionary):
         """
         # find the position of 'word' in the list, if exists, will be at idx-1
         # TO BE IMPLEMENTED
-
-        return False
+        dictionary = self.dict
+        for x in dictionary:
+            if word == x.word:
+                word_stop = x
+                break
+            else:
+                word_stop = 0
+            
+        if word_stop == 0:
+            return False
+        else:       
+            dictionary.remove(word_stop) 
+            return True
 
 
     def autocomplete(self, prefix_word: str) -> [WordFrequency]:
