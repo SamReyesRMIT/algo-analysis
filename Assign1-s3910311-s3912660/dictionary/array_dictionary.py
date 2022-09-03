@@ -80,8 +80,6 @@ class ArrayDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
-        # find the position of 'word' in the list, if exists, will be at idx-1
-        # TO BE IMPLEMENTED
         dictionary = self.dict
         for x in dictionary:
             if word == x.word:
@@ -103,4 +101,20 @@ class ArrayDictionary(BaseDictionary):
         @param prefix_word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'prefix_word'
         """
-        return []
+        dictionary = self.dict
+        prefix_list = []
+        for x in dictionary:
+            if x.word.startswith(prefix_word):
+                prefix_list.append(x)
+
+        n = len(prefix_list)
+        swapped = False
+        for i in range(n-1):
+            for j in range(0, n-i-1):
+                if prefix_list[j].frequency < prefix_list[j+1].frequency:
+                    swapped = True
+                    prefix_list[j], prefix_list[j+1] = prefix_list[j+1],prefix_list[j]
+                
+        prefix_list = prefix_list[:3]
+
+        return prefix_list
