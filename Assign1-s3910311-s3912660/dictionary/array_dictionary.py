@@ -23,13 +23,13 @@ class ArrayDictionary(BaseDictionary):
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        # TO BE IMPLEMENTED
         dictionary = []
 
+        #adds elements to array
         for x in words_frequencies:
             dictionary.append(x)
 
-        #sort inputList alphabetically
+        #bubble sort dictionary alphabetically
         n = len(dictionary)
         swapped = False
         for i in range(n-1):
@@ -46,9 +46,8 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # TO BE IMPLEMENTED
         dictionary = self.dict
-        
+
         for x in dictionary:
             if x.word == word:
                 return x.frequency       
@@ -62,8 +61,18 @@ class ArrayDictionary(BaseDictionary):
         :return: True whether succeeded, False when word is already in the dictionary
         """
         # TO BE IMPLEMENTED
+        dictionary = self.dict
 
-        return False
+        for x in dictionary:
+            if word_frequency.word > x.word:
+                word_stop = x
+            elif word_frequency.word == x.word:
+                word_stop = 0
+        if word_stop == 0:
+            return False
+        else:       
+            dictionary.insert(dictionary.index(word_stop) + 1,word_frequency) 
+            return True
 
     def delete_word(self, word: str) -> bool:
         """
