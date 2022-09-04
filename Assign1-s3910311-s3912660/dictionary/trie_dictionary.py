@@ -24,7 +24,7 @@ class TrieDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
-        pass
+        self.root = TrieNode("")
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
@@ -32,6 +32,19 @@ class TrieDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
         # TO BE IMPLEMENTED
+        node = self.root
+
+        for words in words_frequencies:
+            for char in words.word:
+                if char in node.children:
+                    node = node.children[char]
+                else:
+                    new_node = TrieNode(char)
+                    node.children[char] = new_node
+                    node = new_node
+            node.is_last = True
+            node.frequency = words.frequency
+            node = self.root
 
 
     def search(self, word: str) -> int:
@@ -41,8 +54,17 @@ class TrieDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         # TO BE IMPLEMENTED
-
-        return 0
+        node = self.root
+        for char in word:
+            if char in node.children:
+                node = node.children[char] 
+            else:
+                break
+            
+        if node.is_last == True:
+            return node.frequency
+        else:
+            return 0
 
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
