@@ -59,7 +59,7 @@ class TrieDictionary(BaseDictionary):
             if char in node.children:
                 node = node.children[char] 
             else:
-                break
+                return 0
             
         if node.is_last == True:
             return node.frequency
@@ -91,6 +91,7 @@ class TrieDictionary(BaseDictionary):
             node.frequency = word_frequency.frequency
             return True
 
+
     def delete_word(self, word: str) -> bool:
         """
         delete a word from the dictionary
@@ -109,8 +110,15 @@ class TrieDictionary(BaseDictionary):
             return True
         else:
             return False
-        
 
+    def traverse(self,root, prefix, result, freq):
+        if root.is_last:
+            result.append(prefix[:])
+            freq.append(root.frequency)
+        for c,n in root.children.items():
+            prefix.append(c)
+            self.traverse(n, prefix, result,freq)
+            prefix.pop(-1)
 
     def autocomplete(self, word: str) -> [WordFrequency]:
         """
@@ -118,4 +126,31 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
-        return []
+        node = self.root
+        for w in word:
+            if w in node.children:
+                node = node.children[w]
+            else:
+                return []
+        result = []
+        frequency = []
+        self.traverse(node, list(word), result, frequency)
+    
+        output = []
+
+        words = [''.join(r) for r in result]
+
+        for i in range(len(words)):
+            output.append(WordFrequency(words[i], frequency[i]))
+        
+        n = len(output)
+        swapped = False
+        for i in range(n-1):
+            for j in range(0, n-i-1):
+                if output[j].frequency < output[j+1].frequency:
+                    swapped = True
+                    output[j], output[j+1] = output[j+1],output[j]
+                
+        output = output[:3]
+
+        return output
