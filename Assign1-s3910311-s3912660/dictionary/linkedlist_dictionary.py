@@ -23,6 +23,7 @@ class LinkedListDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
+        self.dict = dict
         pass
 
 
