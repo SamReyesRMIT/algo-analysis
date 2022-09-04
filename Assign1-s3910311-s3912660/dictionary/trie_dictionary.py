@@ -97,8 +97,19 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
+        node = self.root
+        for char in word:
+            if char in node.children:
+                node = node.children[char] 
+            else:
+                break
 
-        return False
+        if node.is_last == True:
+            node.is_last = False
+            return True
+        else:
+            return False
+        
 
 
     def autocomplete(self, word: str) -> [WordFrequency]:
