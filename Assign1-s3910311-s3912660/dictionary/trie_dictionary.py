@@ -75,8 +75,21 @@ class TrieDictionary(BaseDictionary):
         """
 
         # TO BE IMPLEMENTED
-
-        return False
+        node = self.root
+        for char in word_frequency.word:
+            if char in node.children:
+                node = node.children[char] 
+            else:
+                new_node = TrieNode(char)
+                node.children[char] = new_node
+                node = new_node
+                
+        if node.is_last == True:
+            return False
+        else:
+            node.is_last = True
+            node.frequency = word_frequency.frequency
+            return True
 
     def delete_word(self, word: str) -> bool:
         """
