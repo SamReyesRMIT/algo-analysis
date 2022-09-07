@@ -63,11 +63,12 @@ class ArrayDictionary(BaseDictionary):
         dictionary = self.dict
 
         for x in dictionary:
-            if word_frequency.word > x.word:
-                word_stop = x
-                break
-            elif word_frequency.word == x.word:
+            if x.word == word_frequency.word:
                 word_stop = 0
+                break
+            elif word_frequency.word > x.word:
+                word_stop = x
+                
         if word_stop == 0:
             return False
         else:       
