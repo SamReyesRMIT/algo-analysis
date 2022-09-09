@@ -17,11 +17,11 @@ y_llist_A = [0.00946,0.0138,0.0104,0.0148,0.0156,0.0232,0.0156 ]
 y_llist_D = [0.00948,0.0454,0.0129,0.0131,0.0133,0.0182,0.0196]
 y_llist_AC = [0.00745,0.0105,0.0114,0.0153,0.0150,0.0180,0.0284]
 
-plt.plot(x, y_array_AC)
+plt.plot(x, y_llist_AC)
 
 plt.xlabel('n')
 plt.ylabel('runtime')
-plt.title('runtime of autocomplete across different n for array')
+plt.title('runtime of auto complete across different n for linked list')
 
 plt.show()
 
