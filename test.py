@@ -1,83 +1,24 @@
-import bisect
-from re import search
-from threading import currentThread
+import matplotlib.pyplot as plt
 
-array = []
-class WordFrequency:
-    def __init__(self, word: str, frequency: int):
-        self.word = word
-        self.frequency = frequency
+x = [500, 1000, 5000, 10000, 20000, 50000, 100000]
 
-class ListNode:
-    '''
-    Define a node in the linked list
-    '''
+y_array_S = [0.0120,0.00727,0.00724,0.0124,0.00832,0.0165,0.0250]
+y_array_A = [0.00740,0.0106,0.0119,0.00697,0.0100,0.0179,0.0403]
+y_array_D = [0.0113,0.0100,0.00733,0.00613,0.00705,0.0120,0.0155]
+y_array_AC = [0.00964,0.00919,0.0137,0.0125,0.0116,0.0159,0.0345]
 
-    def __init__(self, word_frequency: WordFrequency):
-        self.word_frequency = word_frequency
-        self.next = None
-
-
-array.append(WordFrequency("cute",100))
-array.append(WordFrequency("ant",20))
-array.append(WordFrequency("cut",30))
-array.append(WordFrequency("cuts",50))
-array.append(WordFrequency("cutter",90))
-array.append(WordFrequency("cutting",800))
-
-head = None
-
-cur_node = head
-
-for word in array:
-    new_node = ListNode(word)
-    if head:
-        cur_node = head
-        while(cur_node.next):
-            cur_node = cur_node.next
-        cur_node.next = new_node
-    else:
-        head = new_node
-
-
-print (head.next.word_frequency.word)
-
-
-first = None
-second = None
-third = None
-
-prefix = 'cut'
-
-# SEARCH FOR WORDS
-item = head
-while item != None:  #while item exists
-    if item.word_frequency.word.startswith(prefix) and first != None and second != None:
-        if first.frequency < item.word_frequency.frequency:
-            third = second
-            second = first
-            first = item.word_frequency
-        elif second.frequency < item.word_frequency.frequency:
-            third = second
-            second = item.word_frequency
-        elif second.frequency > item.word_frequency.frequency:
-            third = item.word_frequency
-    elif item.word_frequency.word.startswith(prefix) and first == None: #if item starts with prefix
-        first = item.word_frequency
-    elif item.word_frequency.word.startswith(prefix) and first != None:
-        if first.frequency > item.word_frequency.frequency:
-            second = item.word_frequency
-        else:
-            second = first
-            first = item.word_frequency
-
-    item = item.next
-print (first.word, second.word, third.word)
+y_trie_S = [0.00915,0.00963,0.00762,0.0105,0.00713,0.0123,0.00773]
+y_trie_A = [0.0102,0.0110,0.0109,0.0113,0.0118,0.0110,0.0123]
+y_trie_D = [0.0108,0.00975,0.00773,0.0112,0.00547,0.0104,0.00775]
+y_trie_AC = []
 
 
 
+plt.plot(x, y_trie_S)
 
-# if current node.WordFrequency.word has the prefix == True
-#     compare node.WordFrequency.frequency with first,second,third 
-#     set values for first second third
-#     return first second third
+plt.xlabel('n')
+plt.ylabel('runtime')
+plt.title('runtime of search across different n for trie')
+
+plt.show()
+
