@@ -74,16 +74,7 @@ class LinkedListDictionary(BaseDictionary):
         :return: True whether succeeded, False when word is already in the dictionary
         """
 
-        found = False
-
-        item = self.head
-        while item != None:
-            if item.word_frequency.word == word_frequency.word:
-                found = True
-            else:
-                item = item.next
-                
-        if found == False:
+        if self.search(word_frequency.word) == 0:
             new_node = ListNode(word_frequency)
             if self.head:
                 cur_node = self.head
@@ -96,8 +87,6 @@ class LinkedListDictionary(BaseDictionary):
         else:
             return False
 
-        
-        # adding directly to the end of the linked
         # TO BE IMPLEMENTED
 
     def delete_word(self, word: str) -> bool:
@@ -139,45 +128,18 @@ class LinkedListDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
-
-        first = None
-        second = None
-        third = None
-
+        
         output = []
 
         item = self.head
-        while item != None:  #while item exists
-            if item.word_frequency.word.startswith(word) and first != None and second != None:
-                if first.frequency < item.word_frequency.frequency:
-                    third = second
-                    second = first
-                    first = item.word_frequency
-                elif second.frequency < item.word_frequency.frequency:
-                    third = second
-                    second = item.word_frequency
-                elif second.frequency > item.word_frequency.frequency:
-                    third = item.word_frequency
-            elif item.word_frequency.word.startswith(word) and first == None: #if item starts with
-                first = item.word_frequency
-            elif item.word_frequency.word.startswith(word) and first != None:
-                if first.frequency > item.word_frequency.frequency:
-                    second = item.word_frequency
-                else:
-                    second = first
-                    first = item.word_frequency
-
+        while item != None:
+            if item.word_frequency.word.startswith(word):
+                output.append(item.word_frequency)
             item = item.next
-
-        if first != None:
-            output.append(first)
-        if second != None:
-            output.append(second)
-        if third != None:
-            output.append(third)
         
-        # TO BE IMPLEMENTED
-        return output
+        output.sort(key=lambda x:x.frequency, reverse=True)
+        return output[:3]
+       
 
 
 
