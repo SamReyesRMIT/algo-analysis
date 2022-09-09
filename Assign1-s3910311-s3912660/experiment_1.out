@@ -1,0 +1,12 @@
+Found 'word' with frequency 98671341 with time taken = 1.0106556416
+Add 'word' failed with time taken = 1.0134415627
+Delete 'word' succeeded with time taken = 1.0088901520
+Autocomplete for 'wo': [ women: 242520455  working: 147675944  woman: 70613606  ] with time taken = 1.0371804237
+NOT Found 'word with time taken = 1.0219521523
+Add 'word' succeeded with time taken = 1.0180430412
+Delete 'word' succeeded with time taken = 1.0270004272
+Autocomplete for 'wo': [ women: 242520455  working: 147675944  woman: 70613606  ] with time taken = 1.0192072392
+NOT Found 'word with time taken = 1.0158584118
+Add 'word' succeeded with time taken = 1.0153267384
+Delete 'word' succeeded with time taken = 1.0228652954
+Autocomplete for 'wo': [ women: 242520455  working: 147675944  woman: 70613606  ] with time taken = 1.0288517475
