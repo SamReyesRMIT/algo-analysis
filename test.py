@@ -10,15 +10,15 @@ y_array_AC = [0.00964,0.00919,0.0137,0.0125,0.0116,0.0159,0.0345]
 y_trie_S = [0.00915,0.00963,0.00762,0.0105,0.00713,0.0123,0.00773]
 y_trie_A = [0.0102,0.0110,0.0109,0.0113,0.0118,0.0110,0.0123]
 y_trie_D = [0.0108,0.00975,0.00773,0.0112,0.00547,0.0104,0.00775]
-y_trie_AC = []
+y_trie_AC = [0.00721,0.00829,0.0136,0.00708,0.00708,0.00881,0.0116]
 
 
 
-plt.plot(x, y_trie_S)
+plt.plot(x, y_array_AC)
 
 plt.xlabel('n')
 plt.ylabel('runtime')
-plt.title('runtime of search across different n for trie')
+plt.title('runtime of autocomplete across different n for array')
 
 plt.show()
 
