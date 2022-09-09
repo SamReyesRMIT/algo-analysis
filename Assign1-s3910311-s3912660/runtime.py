@@ -79,56 +79,46 @@ if __name__ == '__main__':
             # search
             if command == 'S':
                 start = time.time()
+                time.sleep(1)
                 word = command_values[1]
                 search_result = agent.search(word)
                 if search_result > 0:
-                    end = time.time()
-                    runtime = end - start
-                    output_file.write(f"Found '{word}' with frequency {search_result} with time taken = %s\n" % (time.time() - start))
+                    output_file.write(f"Found '{word}' with frequency {search_result} with time taken = %.10f\n" % (time.time() - start))
                 else:
-                    end = time.time()
-                    runtime = end - start
-                    output_file.write(f"NOT Found '{word} with time taken = %s\n" % (time.time() - start))
+                    output_file.write(f"NOT Found '{word} with time taken = %.10f\n" % (time.time() - start))
 
             # add
             elif command == 'A':
                 start = time.time()
+                time.sleep(1)
                 word = command_values[1]
                 frequency = int(command_values[2])
                 word_frequency = WordFrequency(word, frequency)
                 if not agent.add_word_frequency(word_frequency):
-                    end = time.time()
-                    runtime = end - start
-                    output_file.write(f"Add '{word}' failed with time taken = %s\n" % (time.time() - start))
+                    output_file.write(f"Add '{word}' failed with time taken = %.10f\n" % (time.time() - start))
                 else:
-                    end = time.time()
-                    runtime = end - start
-                    output_file.write(f"Add '{word}' succeeded with time taken = %s\n" % (time.time() - start))
+                    output_file.write(f"Add '{word}' succeeded with time taken = %.10f\n" % (time.time() - start))
 
             # delete
             elif command == 'D':
                 word = command_values[1]
                 start = time.time()
+                time.sleep(1)
                 if not agent.delete_word(word):
-                    end = time.time()
-                    runtime = end - start
-                    output_file.write(f"Delete '{word}' failed with time taken = %s\n" % (time.time() - start))
+                    output_file.write(f"Delete '{word}' failed with time taken = %.10f\n" % (time.time() - start))
                 else:
-                    end = time.time()
-                    runtime = end - start
-                    output_file.write(f"Delete '{word}' succeeded with time taken = %s\n" % (time.time() - start))
+                    output_file.write(f"Delete '{word}' succeeded with time taken = %.10f\n" % (time.time() - start))
 
             # check
             elif command == 'AC':
                 start = time.time()
+                time.sleep(1)
                 word = command_values[1]
                 list_words = agent.autocomplete(word)
-                end = time.time()
-                runtime = end - start
                 line = "Autocomplete for '" + word + "': [ "
                 for item in list_words:
                     line = line + item.word + ": " + str(item.frequency) + "  "
-                output_file.write(line + f'] with time taken = %s\n' % (time.time() - start))
+                output_file.write(line + f'] with time taken = %.10f\n' % (time.time() - start))
             else:
                 print('Unknown command.')
                 print(line)
