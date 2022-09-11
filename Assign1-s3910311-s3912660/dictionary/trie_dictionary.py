@@ -23,7 +23,7 @@ class TrieNode:
 class TrieDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
+        # create the root node
         self.root = TrieNode("")
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
@@ -31,17 +31,21 @@ class TrieDictionary(BaseDictionary):
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        # TO BE IMPLEMENTED
+        # start from root node
         node = self.root
 
+        # for every word
         for words in words_frequencies:
+            #for each char in the word
             for char in words.word:
+                # the node is create if it does not exist, or we traverse through the node
                 if char in node.children:
                     node = node.children[char]
                 else:
                     new_node = TrieNode(char)
                     node.children[char] = new_node
                     node = new_node
+            # set is_last to true when the last character reached
             node.is_last = True
             node.frequency = words.frequency
             node = self.root
@@ -53,14 +57,17 @@ class TrieDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # TO BE IMPLEMENTED
+        # start from root node
         node = self.root
+
+        # traverse throguh trie if the characters in search word are in the trie
         for char in word:
             if char in node.children:
                 node = node.children[char] 
             else:
                 return 0
             
+        # return frequency if is_last is true
         if node.is_last == True:
             return node.frequency
         else:
@@ -74,8 +81,10 @@ class TrieDictionary(BaseDictionary):
         :return: True whether succeeded, False when word is already in the dictionary
         """
 
-        # TO BE IMPLEMENTED
+        # start from root node
         node = self.root
+
+        # traverse throguh trie and create nodes if the characters in add word are in the trie
         for char in word_frequency.word:
             if char in node.children:
                 node = node.children[char] 
@@ -84,6 +93,7 @@ class TrieDictionary(BaseDictionary):
                 node.children[char] = new_node
                 node = new_node
                 
+        # create word from input 
         if node.is_last == True:
             return False
         else:
@@ -98,19 +108,24 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
+        # start from root node
         node = self.root
+
+        # traverse throguh trie according to input word
         for char in word:
             if char in node.children:
                 node = node.children[char] 
             else:
                 break
 
+        # set is_last to false if the word is found
         if node.is_last == True:
             node.is_last = False
             return True
         else:
             return False
 
+    # dfs that shows found words while starting from a node
     def traverse(self,root, prefix, result, freq):
         if root.is_last:
             result.append(prefix[:])
@@ -127,6 +142,7 @@ class TrieDictionary(BaseDictionary):
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
         node = self.root
+        # make the starting node to be the input word
         for w in word:
             if w in node.children:
                 node = node.children[w]
@@ -134,15 +150,19 @@ class TrieDictionary(BaseDictionary):
                 return []
         result = []
         frequency = []
+        # add all the words found starting from the node of input
         self.traverse(node, list(word), result, frequency)
     
         output = []
 
+        #parse words into a list
         words = [''.join(r) for r in result]
 
+        # create the WordFrequency objects from the above traverse method
         for i in range(len(words)):
             output.append(WordFrequency(words[i], frequency[i]))
         
+        # sort the list from highest frequency to lowest
         n = len(output)
         swapped = False
         for i in range(n-1):
@@ -151,6 +171,7 @@ class TrieDictionary(BaseDictionary):
                     swapped = True
                     output[j], output[j+1] = output[j+1],output[j]
                 
+        # keep top 3 frequency words
         output = output[:3]
 
         return output

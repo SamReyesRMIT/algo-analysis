@@ -14,7 +14,6 @@ import bisect
 class ArrayDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
         self.dict = dict
 
 
@@ -46,8 +45,10 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
+        #call dictionary to put into a variable
         dictionary = self.dict
 
+        #iterate through all the list until we find the searched word
         for x in dictionary:
             if x.word == word:
                 return x.frequency       
@@ -62,6 +63,7 @@ class ArrayDictionary(BaseDictionary):
         """
         dictionary = self.dict
 
+        #set the word_stop to be the index for alphabetical order
         for x in dictionary:
             if x.word == word_frequency.word:
                 word_stop = 0
@@ -69,6 +71,7 @@ class ArrayDictionary(BaseDictionary):
             elif word_frequency.word > x.word:
                 word_stop = x
                 
+        #word is added if it is not found in the dictionary
         if word_stop == 0:
             return False
         else:       
@@ -82,6 +85,8 @@ class ArrayDictionary(BaseDictionary):
         @return: whether succeeded, e.g. return False when point not found
         """
         dictionary = self.dict
+
+        #set the word_stop to be the index where we find a word
         for x in dictionary:
             if word == x.word:
                 word_stop = x
@@ -89,6 +94,7 @@ class ArrayDictionary(BaseDictionary):
             else:
                 word_stop = 0
             
+        #remove word if it is found 
         if word_stop == 0:
             return False
         else:       
@@ -104,18 +110,22 @@ class ArrayDictionary(BaseDictionary):
         """
         dictionary = self.dict
         prefix_list = []
+
+        #add all words that start with the prefix into a list
         for x in dictionary:
             if x.word.startswith(prefix_word):
                 prefix_list.append(x)
 
         n = len(prefix_list)
         swapped = False
+        #sort the list from highest frequency to lowest
         for i in range(n-1):
             for j in range(0, n-i-1):
                 if prefix_list[j].frequency < prefix_list[j+1].frequency:
                     swapped = True
                     prefix_list[j], prefix_list[j+1] = prefix_list[j+1],prefix_list[j]
                 
+        #keep the top 3 frequencies of the list
         prefix_list = prefix_list[:3]
 
         return prefix_list
