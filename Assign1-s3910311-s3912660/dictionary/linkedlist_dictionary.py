@@ -27,8 +27,8 @@ class ListNode:
 class LinkedListDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
-        self.head = None
+
+        self.head = None #initialise head node
 
     def build_dictionary(self, words_frequencies: [WordFrequency]): 
         """
@@ -36,9 +36,10 @@ class LinkedListDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
 
+        # CREATE LINKED LIST FROM LIST OF WORDS
         cur_node = self.head
 
-        for word in words_frequencies:
+        for word in words_frequencies: 
             new_node = ListNode(word)
             if self.head:
                 cur_node = self.head
@@ -47,7 +48,7 @@ class LinkedListDictionary(BaseDictionary):
                 cur_node.next = new_node
             else:
                 self.head = new_node
-#
+
 
     def search(self, word: str) -> int:
         """
@@ -55,19 +56,16 @@ class LinkedListDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
+ 
         item = self.head
         while item != None:
             if item.word_frequency.word == word:
                 return item.word_frequency.frequency
             else:
                 item = item.next
-        # # TO BE IMPLEMENTED
         return 0
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
-
-        # add in a new element/adding a new node
-
         """
         add a word and its frequency to the dictionary
         @param word_frequency: (word, frequency) to be added
@@ -86,8 +84,6 @@ class LinkedListDictionary(BaseDictionary):
             return True
         else:
             return False
-
-        # TO BE IMPLEMENTED
 
     def delete_word(self, word: str) -> bool:
         """
@@ -116,11 +112,7 @@ class LinkedListDictionary(BaseDictionary):
                 return True
             prev_node = cur_node
             cur_node = cur_node.next
-            
-
-        # TO BE IMPLEMENTED
         return False
-
 
     def autocomplete(self, word: str) -> [WordFrequency]:
         """
@@ -131,13 +123,17 @@ class LinkedListDictionary(BaseDictionary):
         
         output = []
 
+        # APPENDS MATCHING WORDS TO ARRAY
         item = self.head
         while item != None:
             if item.word_frequency.word.startswith(word):
                 output.append(item.word_frequency)
             item = item.next
         
+        # SORT ARRAY
         output.sort(key=lambda x:x.frequency, reverse=True)
+        
+        # RETURNS TOP 3 WORDS   
         return output[:3]
        
 
